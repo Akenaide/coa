@@ -10,7 +10,6 @@ import (
 	"github.com/asciimoo/coa/event"
 )
 
-
 // Shell notifier executes commands on fail and pass events.
 // Event message is acessible from the commands with the %q format string.
 // Arguments:
@@ -37,7 +36,7 @@ func (s *ShellNotifier) Initialize(args map[string]string) error {
 }
 
 type shellArgs struct {
-	Title string
+	Title   string
 	Message string
 }
 
@@ -74,7 +73,6 @@ func (s *ShellNotifier) Notify(e *event.Event) error {
 	cmd := exec.Command("sh", "-c", cmdStr)
 	return cmd.Run()
 }
-
 
 func (_ *ShellNotifier) Destruct() error {
 	return nil

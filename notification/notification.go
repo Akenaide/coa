@@ -13,14 +13,14 @@ type Notifier interface {
 }
 
 type NotifierBackend struct {
-	Type string
-	Args map[string]string
+	Type     string
+	Args     map[string]string
 	notifier Notifier
 }
 
 var NotifierTypes = map[string]Notifier{
 	"shell": &ShellNotifier{},
-	"log": &LogNotifier{},
+	"log":   &LogNotifier{},
 }
 
 var backends []*NotifierBackend
@@ -52,7 +52,7 @@ func Initialize(nbs []*NotifierBackend) error {
 
 func Send(e *event.Event) error {
 	// TODO proper error handling. Now only the last error is shown
-    var notifError error
+	var notifError error
 	for _, backend := range backends {
 		if backend != nil {
 			err := backend.notifier.Notify(e)

@@ -16,13 +16,13 @@ import (
 )
 
 type Checker struct {
-	Paths []string
-	Exclude string `yaml:",omitempty"`
-	Command string
-	Name string
+	Paths       []string
+	Exclude     string `yaml:",omitempty"`
+	Command     string
+	Name        string
 	ProjectName string
-	running bool
-	stop chan bool
+	running     bool
+	stop        chan bool
 }
 
 func (c *Checker) Start(cwd string) {
@@ -121,7 +121,7 @@ func (c *Checker) Start(cwd string) {
 			}
 		case err := <-watcher.Errors:
 			log.Println("Inotify error:", err)
-		case <- startCheck:
+		case <-startCheck:
 			c.running = true
 			cmd := exec.Command("sh", "-c", c.Command)
 			cmd.Dir = cwd
@@ -131,7 +131,7 @@ func (c *Checker) Start(cwd string) {
 				*activeFiles = make(map[string]bool)
 				out, err := cmd.CombinedOutput()
 				if err != nil {
-					notification.Send(c.CreateEvent(event.Fail, "Check command returned with error: " + string(out)))
+					notification.Send(c.CreateEvent(event.Fail, "Check command returned with error: "+string(out)))
 				} else {
 					if cmd.ProcessState.Success() {
 						notification.Send(c.CreateEvent(event.Pass, string(out)))
@@ -144,7 +144,7 @@ func (c *Checker) Start(cwd string) {
 					go func() { startCheck <- true }()
 				}
 			}(cmd, &activeFiles, c)
-		case <- c.stop:
+		case <-c.stop:
 			c.running = false
 			return
 		}
@@ -153,8 +153,8 @@ func (c *Checker) Start(cwd string) {
 
 func (c *Checker) CreateEvent(t event.EventType, message string) *event.Event {
 	return &event.Event{
-		Type: t,
-		Message: message,
+		Type:        t,
+		Message:     message,
 		ProjectName: c.ProjectName,
 		CheckerName: c.Name,
 	}

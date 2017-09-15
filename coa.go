@@ -9,8 +9,8 @@ import (
 	"github.com/asciimoo/coa/notification"
 	"github.com/asciimoo/coa/server"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/jawher/mow.cli"
+	"github.com/mitchellh/go-homedir"
 )
 
 var configFolder = ""
@@ -63,7 +63,7 @@ func main() {
 				fmt.Println("Error! Missing project file")
 				os.Exit(2)
 			}
-			err := server.Call(c.ServerAddress + "/api/add", map[string]string{"path": *projectFile})
+			err := server.Call(c.ServerAddress+"/api/add", map[string]string{"path": *projectFile})
 			if err != nil {
 				fmt.Println("Error!", err.Error())
 				os.Exit(3)
@@ -82,7 +82,7 @@ func main() {
 
 	app.Command("reload", "Reload Coa server", func(cmd *cli.Cmd) {
 		cmd.Action = func() {
-			err := server.Call(c.ServerAddress + "/api/reload", nil)
+			err := server.Call(c.ServerAddress+"/api/reload", nil)
 			if err != nil {
 				fmt.Println("Server reload error!", err.Error())
 				os.Exit(6)

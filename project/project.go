@@ -11,10 +11,10 @@ import (
 )
 
 type Project struct {
-	Name string
+	Name       string
 	ConfigPath string
-	Checkers []*checker.Checker
-	stop chan bool
+	Checkers   []*checker.Checker
+	stop       chan bool
 }
 
 func Load(projectConfigFile string) (*Project, error) {
@@ -48,7 +48,7 @@ func (p *Project) Start() {
 	}
 
 	select {
-	case <- p.stop:
+	case <-p.stop:
 		for _, c := range p.Checkers {
 			c.Stop()
 		}

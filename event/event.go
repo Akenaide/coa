@@ -3,15 +3,15 @@ package event
 type EventType int
 
 const (
-    Fail EventType = iota
-    Pass
+	Fail EventType = iota
+	Pass
 	Notice
 	Warning
 )
 
 type Event struct {
-	Type EventType
-	Message string
+	Type        EventType
+	Message     string
 	ProjectName string
 	CheckerName string
 }

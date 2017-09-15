@@ -1,6 +1,6 @@
 package action
 
 type Action struct {
-	Type string
+	Type    string
 	Command string
 }

@@ -9,7 +9,6 @@ import (
 	"github.com/asciimoo/coa/event"
 )
 
-
 // Log notifier dumps events to the specified file destination.
 // Arguments:
 //    "destination": log file path or STDOUT or STDERR (optional, default is STDERR)
@@ -25,7 +24,7 @@ func (l *LogNotifier) Initialize(args map[string]string) error {
 		case "STDERR":
 			l.destination = os.Stderr
 		default:
-			logFile, err := os.OpenFile(destination, os.O_RDWR|os.O_APPEND|os.O_CREATE, 0600);
+			logFile, err := os.OpenFile(destination, os.O_RDWR|os.O_APPEND|os.O_CREATE, 0600)
 			if err != nil {
 				return err
 			}
