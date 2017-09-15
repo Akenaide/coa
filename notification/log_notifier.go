@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 
 	"github.com/asciimoo/coa/event"
 )
@@ -41,7 +40,7 @@ func (l *LogNotifier) Notify(e *event.Event) error {
 		e.ProjectName,
 		e.CheckerName,
 		event.EventTypeName(e.Type),
-		strings.Replace(e.Message, "\n", string('\u23CE'), -1),
+		e.Message,
 	)
 	return err
 }
